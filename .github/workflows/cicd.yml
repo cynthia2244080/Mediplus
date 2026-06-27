@@ -53,7 +53,7 @@
 #           echo "${{ secrets.SSH_KEY }}" > mykey.pem
 #           chmod 600 mykey.pem
 
-#           ssh -o StrictHostKeyChecking=no -i mykey.pem ubuntu@44.223.72.198 << 'EOF'
+#           ssh -o StrictHostKeyChecking=no -i mykey.pem ubuntu@16.171.116.105 << 'EOF'
 #             echo "🔹 Starting deployment on EC2..."
 #             sudo apt update -y
 #             sudo apt install -y awscli docker.io
@@ -134,7 +134,7 @@ jobs:
           echo "${{ secrets.SSH_KEY }}" > mykey.pem
           chmod 600 mykey.pem
 
-          ssh -o StrictHostKeyChecking=no -i mykey.pem ubuntu@44.223.72.198 << EOF
+          ssh -o StrictHostKeyChecking=no -i mykey.pem ubuntu@16.171.116.105 << EOF
             aws configure set aws_access_key_id "${{ secrets.AWS_ACCESS_KEY_ID }}"
             aws configure set aws_secret_access_key "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
             aws configure set default.region "eu-north-1"
