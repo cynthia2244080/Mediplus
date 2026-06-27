@@ -153,3 +153,4 @@ jobs:
               --restart unless-stopped \
               969433238357.dkr.ecr.eu-north-1.amazonaws.com/mediplus:${{ github.run_number }}
           EOF
+          # 
