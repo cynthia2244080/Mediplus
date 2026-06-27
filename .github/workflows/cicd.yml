@@ -129,28 +129,28 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-north-1
 
-      - name: Deploy to EC2
-        run: |
-          echo "${{ secrets.SSH_KEY }}" > mykey.pem
-          chmod 600 mykey.pem
+      # - name: Deploy to EC2
+      #   run: |
+      #     echo "${{ secrets.SSH_KEY }}" > mykey.pem
+      #     chmod 600 mykey.pem
 
-          ssh -o StrictHostKeyChecking=no -i mykey.pem ubuntu@16.171.116.105 << EOF
-            aws configure set aws_access_key_id "${{ secrets.AWS_ACCESS_KEY_ID }}"
-            aws configure set aws_secret_access_key "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
-            aws configure set default.region "eu-north-1"
+      #     ssh -o StrictHostKeyChecking=no -i mykey.pem ubuntu@16.171.116.105 << EOF
+      #       aws configure set aws_access_key_id "${{ secrets.AWS_ACCESS_KEY_ID }}"
+      #       aws configure set aws_secret_access_key "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+      #       aws configure set default.region "eu-north-1"
 
-            aws ecr get-login-password --region eu-north-1 | \
-            docker login --username AWS --password-stdin 969433238357.dkr.ecr.eu-north-1.amazonaws.com
+      #       aws ecr get-login-password --region eu-north-1 | \
+      #       docker login --username AWS --password-stdin 969433238357.dkr.ecr.eu-north-1.amazonaws.com
 
-            docker pull 969433238357.dkr.ecr.eu-north-1.amazonaws.com/mediplus:${{ github.run_number }}
+      #       docker pull 969433238357.dkr.ecr.eu-north-1.amazonaws.com/mediplus:${{ github.run_number }}
 
-            docker stop mediplus || true
-            docker rm mediplus || true
+      #       docker stop mediplus || true
+      #       docker rm mediplus || true
 
-            docker run -d \
-              --name mediplus \
-              -p 80:80 \
-              --restart unless-stopped \
-              969433238357.dkr.ecr.eu-north-1.amazonaws.com/mediplus:${{ github.run_number }}
-          EOF
-          # 
+      #       docker run -d \
+      #         --name mediplus \
+      #         -p 80:80 \
+      #         --restart unless-stopped \
+      #         969433238357.dkr.ecr.eu-north-1.amazonaws.com/mediplus:${{ github.run_number }}
+      #     EOF
+      #     # 
